@@ -1,0 +1,15 @@
+tlelist False https://www.celestrak.com/NORAD/elements/weather.txt
+tlelist False https://www.celestrak.com/NORAD/elements/geo.txt
+tlelist False https://www.celestrak.com/NORAD/elements/geodetic.txt
+tlelist False https://www.celestrak.com/NORAD/elements/military.txt
+tlelist False https://www.celestrak.com/NORAD/elements/science.txt
+tlelist False https://www.celestrak.com/NORAD/elements/amateur.txt
+tlelist False https://www.celestrak.com/NORAD/elements/gps-ops.txt
+tlelist False https://www.celestrak.com/NORAD/elements/glo-ops.txt
+tlelist False https://www.celestrak.com/NORAD/elements/other.txt
+tlelist False https://www.celestrak.com/NORAD/elements/stations.txt
+tlelist False https://www.celestrak.com/NORAD/elements/visual.txt
+tlelist False https://www.celestrak.com/NORAD/elements/x-comm.txt
+tlelist False https://www.celestrak.com/NORAD/elements/other-comm.txt
+tlelist False https://www.celestrak.com/NORAD/elements/argos.txt
+tlelist False https://www.celestrak.com/NORAD/elements/tle-new.txt
