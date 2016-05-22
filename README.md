@@ -33,4 +33,4 @@ Course project of software design. Third course IU7 BMSTU
     
     utils (Не меняем)
 
-GUI (Королев)
+    GUI (Королев)
