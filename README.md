@@ -25,7 +25,7 @@ Course project of software design. Third course IU7 BMSTU
     
     renderer (Махонин)
     
-    satellite -> sgp (Бибин)
+    satellite -> sgp (Прищеп)
     
     sagrab -> main_sat (Не меняем)
     
