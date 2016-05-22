@@ -3,36 +3,34 @@ Course project of software design. Third course IU7 BMSTU
 
 ### Files
 
-    coordconv (Королев) 
+    coordconv -> coordinates (Прищеп) 
     
-    core (Махонин)
+    core -> manager (Махонин)
     
-    dbcontroller (Королев)
+    dbcontroller -> database (Прищеп)
     
     decoder (Бибин)
     
-    donwloader (Королев)
+    donwloader (Махонин)
     
-    events (Королев)
+    events -> controller (Бибин)
     
-    gui (Не меняем)
+    gui -> gui_controller (Не меняем)
     
-    gui_qt (Махонин)
+    gui_qt (Не меняем)
     
-    gui_qt_utils (Махонин)
+    gui_qt_utils (Не меняем)
     
-    main (Королев)
+    main (Не меняем)
     
-    renderer (Бибин)
+    renderer (Махонин)
     
-    satellite (Бибин)
+    satellite -> sgp (Прищеп)
     
-    sagrab (Королев)
+    sagrab -> main_sat (Не меняем)
     
-    tledecoder (Бибин)
+    tledecoder -> tle_decoder (Бибин)
     
     utils (Не меняем)
 
     GUI (Королев)
-    
-    DataBase (Прищеп)
