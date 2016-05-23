@@ -24,3 +24,14 @@ class Sat:
         self.intl = "00000A"
         self.country = "N/A"
         self.orbdata = OrbitData() if orbdata is None else orbdata
+
+    def __str__(self):
+        return "sat #{} ({}/{}) last {}".format(
+            self.norad, 
+            self.name, 
+            self.intl, 
+            self.orbdata.date
+        )
+
+    def __repr__(self):
+        return self.__str__()
