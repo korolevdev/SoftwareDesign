@@ -13,6 +13,20 @@ class OrbitData:
     def __init__(self):
         self.init = False
 
+    def init_date(self):
+        if self.epoch_yr < 57:
+            year = self.epoch_yr + 2000
+        else:
+            year = self.epoch_yr + 1900
+        mon, day, hr, minute, sec = days2mdhms(year, self.epoch_day)
+        sec_whole, sec_frac = divmod(sec, 1.0)
+        self.date = datetime(year, mon, day, hr, minute, int(sec_whole),
+                             int(sec_frac * 1000000.0 // 1.0), timezone.utc)
+        self.timestamp = int(time.mktime(self.date.timetuple()))
+        self.jdate = jday(year, mon, day, hr, minute, sec)
+
+
+
 
 class Sat:
 
