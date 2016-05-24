@@ -37,3 +37,10 @@ class SatView:
             if s.norad == n:
                 return s
         return None
+
+    def run(self):
+        while True:
+            self.gui.update()
+            for ev in self.gui.poll_events():
+                ev.process(self)
+            sleep(0.001)
