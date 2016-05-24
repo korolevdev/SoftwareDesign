@@ -20,3 +20,20 @@ class SatView:
         self.gui = QtGUIController()
         self.sats = []
         self.reload_sats()
+
+    def reload_sats(self):
+        try:
+            self.sats = self.dbc.get_all()
+        except DBError as e:
+            self.gui.show_error(SatView.err_db_load.format(str(e)))
+            return
+
+        self.gui.clear_sats()
+        self.gui.update()
+        self.gui.set_sats(self.sats)
+
+    def sat_by_norad(self, n):
+        for s in self.sats:
+            if s.norad == n:
+                return s
+        return None
