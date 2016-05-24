@@ -25,7 +25,35 @@ class OrbitData:
         self.timestamp = int(time.mktime(self.date.timetuple()))
         self.jdate = jday(year, mon, day, hr, minute, sec)
 
+    def init_sgp4(self):
+        xpdotp = 1440.0 / (2.0 * pi)
 
+        self.sgp4 = sgp4model.Satellite()
+
+        self.sgp4.error = 0
+        self.sgp4.whichconst = wgs84
+
+        self.sgp4.no = self.no / xpdotp
+        self.sgp4.bstar = self.bstar * pow(10.0, self.ibexp)
+        self.sgp4.a = pow(self.sgp4.no * wgs84.tumin, (-2.0 / 3.0))
+        self.sgp4.inclo = radians(self.inclo)
+        self.sgp4.nodeo = radians(self.nodeo)
+        self.sgp4.argpo = radians(self.argpo)
+        self.sgp4.mo = radians(self.mo)
+        self.sgp4.alta = self.sgp4.a * (1.0 + self.ecco) - 1.0
+        self.sgp4.altp = self.sgp4.a * (1.0 - self.ecco) - 1.0
+
+        self.sgp4.epochyr = self.date.year
+        self.sgp4.jdsatepoch = self.jdate
+        self.sgp4.epoch = self.date
+        self.sgp4.ecco = self.ecco
+        propagation.sgp4init(
+            wgs84, 'i', self.norad, self.sgp4.jdsatepoch - 2433281.5,
+            self.sgp4.bstar, self.sgp4.ecco, self.sgp4.argpo, self.sgp4.inclo,
+            self.sgp4.mo, self.sgp4.no, self.sgp4.nodeo, self.sgp4
+        )
+
+        self.init = True
 
 
 class Sat:
