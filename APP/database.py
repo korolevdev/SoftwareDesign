@@ -56,3 +56,12 @@ class DBController:
     def get_by_norad(self, norad):
         self.c.execute("select * from sats where norad = ?", (norad,))
         rs = self.c.fetchone()
+
+    def get_orbits_between(self, norad, t_a, t_b):
+        ld, rd = self.closest_orbit(norad, t_a), self.closest_orbit(norad, t_b)
+        orbs = []
+        res = self.c.execute(
+            "select * from orbdata where norad = ? and date between ? and ? order by date",
+            (norad, ld.timestamp, rd.timestamp)
+        )
+        return self.rows_to_orbdata(res)
