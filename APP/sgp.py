@@ -55,6 +55,11 @@ class OrbitData:
 
         self.init = True
 
+    def propagate(self, date):
+        if not self.init:
+            self.init_sgp4()
+        return self.sgp4.propagate(date.year, date.month, date.day, date.hour,
+                                   date.minute, date.second)
 
 class Sat:
 
