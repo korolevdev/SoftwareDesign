@@ -23,6 +23,14 @@ class SecureAdapter(HTTPAdapter):
                                        ssl_version=ssl.PROTOCOL_TLSv1)
 
 
+class DownloaderError(Exception):
+
+    def __init__(self, err):
+        self.value = err
+
+    def __str__(self):
+        return repr(self.value)
+
 class Downloader:
 
     def __init__(self, cfg="sources.list"):
@@ -37,3 +45,19 @@ class Downloader:
                     self.urls.append((fmt, bool(compressed), url))
         except (EnvironmentError, ValueError) as e:
             raise DownloaderError("could not read config file: " + str(e))
+
+def fetch(self, url):
+        response = self.http.get(url, timeout=10)
+        response.raise_for_status()
+        return response.content.decode(response.encoding)
+
+def get_data(self):
+        for fmt, compressed, url in self.urls:
+            print("fetching " + fmt + " from " + url + " ...")
+
+            data = None
+            try:
+                data = self.fetch(url)
+                yield EncodedSatData(fmt, data, compressed, url)
+            except HTTPError as e:
+                print("failed to fetch: " + str(e))
