@@ -98,3 +98,10 @@ class DBController:
     def sat_exists(self, norad):
         self.c.execute("select norad from sats where norad = ?", (norad,))
         return self.c.fetchone() is not None
+
+    def sat_add(self, sat):
+        self.c.execute(
+            "insert or ignore into sats values (?, ?, ?, ?, ?)",
+            (sat.norad, sat.name.rstrip(), sat.intl.rstrip(),
+             sat.country.rstrip(), sat.year)
+        )
