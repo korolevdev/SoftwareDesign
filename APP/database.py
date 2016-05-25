@@ -118,3 +118,11 @@ class DBController:
              orb.inclo, orb.nodeo, orb.ecco, orb.argpo, 
              orb.ibexp, orb.mo, orb.no)
         )
+
+    def add(self, sat):
+        if not self.sat_exists(sat.norad):
+            self.sat_add(sat)
+        self.orbdata_add(sat.norad, sat.orbdata)
+
+    def sync(self):
+        self.conn.commit()
