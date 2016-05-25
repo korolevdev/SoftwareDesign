@@ -52,3 +52,7 @@ class DBController:
             sat = self.row_to_sat(rs)
             sats.append(sat)
         return sats
+
+    def get_by_norad(self, norad):
+        self.c.execute("select * from sats where norad = ?", (norad,))
+        rs = self.c.fetchone()
