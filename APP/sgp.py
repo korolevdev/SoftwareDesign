@@ -61,6 +61,30 @@ class OrbitData:
         return self.sgp4.propagate(date.year, date.month, date.day, date.hour,
                                    date.minute, date.second)
 
+    def get_tle(self, sat):
+        l1 = "1 {:5d}U {:8s} {:02d}{:12.8f} -.00000000 -00000-0 {:1s}{:05d}{:d} 0    1"
+        l2 = "2 {:5d} {:8.4f} {:8.4f} {:07d} {:8.4f} {:8.4f} {:11.8f}{:5d}"
+        orb = sat.orbdata
+        l1 = l1.format(
+            sat.norad, sat.intl,
+            orb.epoch_yr, orb.epoch_day,
+            '-' if orb.bstar < 0 else ' ',
+            int(orb.bstar * 100000),
+            int(orb.ibexp),
+        )
+        l1 += str(tle_checksum(l1))
+
+        l2 = l2.format(
+            sat.norad, orb.inclo,
+            orb.nodeo, int(orb.ecco * 10000000),
+            orb.argpo, orb.mo, orb.no,
+            1
+        )
+        l2 += str(tle_checksum(l2))
+
+        return l1, l2
+
+
 class Sat:
 
     def __init__(self, orbdata=None):
