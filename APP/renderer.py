@@ -112,3 +112,42 @@ class Renderer:
 
         self.jstep = 1.0 / no / self.steps
         self.step = 86400.0 * self.jstep
+
+    def render(self, t1, t2, odata_list):
+        if (len(odata_list) == 0) or (t2 <= t1):
+            return []
+
+        next_odata = odata_list[0]
+        next_time, next_jtime = next_odata.timestamp, next_odata.jdate
+
+        dt1 = datetime.fromtimestamp(t1, timezone.utc)
+        dt2 = datetime.fromtimestamp(t2, timezone.utc)
+        jt1 = jday(dt1.year, dt1.month, dt1.day,
+                   dt1.hour, dt1.minute, dt1.second)
+        jt2 = jday(dt2.year, dt2.month, dt2.day,
+                   dt2.hour, dt2.minute, dt2.second)
+
+        self.set_steps(next_odata.no)
+        self.line_list = []
+
+        if (next_time < t1) or (next_time > t2):
+            self.render_border(t1, t2, jt1, jt2, next_odata)
+            return self.line_list
+
+        self.render_border(t1, next_time, jt1, next_jtime, next_odata)
+
+        i = 1
+        imax = len(odata_list)
+        while i < imax:
+            prev_odata, prev_time, prev_jtime = next_odata, next_time, next_jtime
+            next_odata = odata_list[i]
+            next_time, next_jtime = next_odata.timestamp, next_odata.jdate
+
+            self.render_mid(prev_time, next_time, prev_jtime,
+                            next_jtime, prev_odata, next_odata)
+
+            i += 1
+
+        self.render_border(next_time, t2, next_jtime, jt2, next_odata)
+
+        return self.line_list
