@@ -110,3 +110,26 @@ class TLEDecoder(DecoderGeneric):
 class TLEListDecoder(TLEDecoder):
     fmt = "tlelist"
     err_tle_list = "invalid TLE list"
+
+    def decode(self, str):
+        sats = []
+        lines = []
+        self.cline = 0
+
+        for ln in str.splitlines():
+            ln = ln.strip()
+            if ln == "":
+                self.cline += 1
+                continue
+            lines.append(ln)
+            if len(lines) == 3:
+                sats.append(self.sat_from_tle(lines))
+                lines = []
+
+        if not sats:
+            if lines:
+                sats.append(self.sat_from_tle(lines))
+            else:
+                raise EncodedValueError(self.fmt, TLEListDecoder.err_tle_list)
+
+        return sats
