@@ -27,3 +27,9 @@ def normalize_lon(lon):
         x += 2 * pi
 
     return x - pi
+
+
+def lonlat_to_mercator(lon, lat):
+    x = normalize_lon(lon)
+    y = log(tan(pi / 4 + lat / 2))
+    return x, y
