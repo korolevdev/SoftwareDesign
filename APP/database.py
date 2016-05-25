@@ -65,3 +65,12 @@ class DBController:
             (norad, ld.timestamp, rd.timestamp)
         )
         return self.rows_to_orbdata(res)
+
+    def get_orbit_latest(self, norad):
+        self.c.execute(
+            "select max(date), * from orbdata where norad = ?",
+            (norad,)
+        )
+        rs = self.c.fetchone()
+        orb = self.row_to_orbdata(rs[1:])
+        return orb
