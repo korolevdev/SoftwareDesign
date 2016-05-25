@@ -79,3 +79,18 @@ class DBController:
         orbs = []
         res = self.c.execute("select * from orbdata where norad = ?", (norad,))
         return self.rows_to_orbdata(res)
+
+    def get_orbits_closest(self, norad, time):
+        orbs = []
+        self.c.execute(
+            '''select max(date), * from orbdata where norad = ?1 and date <= ?2
+               union select min(date), * from orbdata where norad = ?1 and date >= ?2''',
+            (norad, time)
+        )
+        res = self.c.fetchall()
+        for rs in res:
+            if rs[0] is None:
+                continue
+            orb = self.row_to_orbdata(rs[1:])
+            orbs.append(orb)
+        return orbs
