@@ -37,6 +37,9 @@ class Decoder:
     def __init__(self, decoders=[]):
         self.decoders = decoders
 
+    def pick_decoder(self, fmt):
+        return next((x for x in self.decoders if x.fmt == fmt), None)
+
     def decode(self, fmt, str):
         dec = self.pick_decoder(fmt)
         if dec is None:
