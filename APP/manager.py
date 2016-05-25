@@ -38,6 +38,48 @@ class SatView:
                 return s
         return None
 
+    def save_tle(self, nums, fname):
+        try:
+            with open(fname, "w") as f:
+                for n in nums:
+                    sat = self.sat_by_norad(n)
+                    if sat is None:
+                        continue
+                    l0 = sat.name
+                    l1, l2 = sat.orbdata.get_tle(sat)
+                    f.write(l0 + '\n' + l1 + '\n' + l2 + '\n')
+        except EnvironmentError as e:
+            self.gui.show_error(SatView.err_save.format(fname, str(e)))
+            return
+
+    def load_tle(self, fname):
+        dec = TLEListDecoder()
+
+        txt = ""
+        try:
+            with open(fname, "r") as f:
+                txt = f.read()
+        except EnvironmentError as e:
+            self.gui.show_error(SatView.err_load.format(fname, str(e)))
+            return
+
+        sats = []
+        try:
+            sats = dec.decode(txt)
+        except DecoderError as e:
+            self.gui.show_error(SatView.err_decode.format(fname, str(e)))
+            return
+
+        try:
+            for sat in sats:
+                self.dbc.add(sat)
+            self.dbc.sync()
+        except DBError as e:
+            self.gui.show_error(SatView.err_db_save.format(str(e)))
+        finally:
+            self.reload_sats()
+
+
     def run(self):
         while True:
             self.gui.update()
