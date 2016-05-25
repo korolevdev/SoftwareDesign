@@ -105,3 +105,16 @@ class DBController:
             (sat.norad, sat.name.rstrip(), sat.intl.rstrip(),
              sat.country.rstrip(), sat.year)
         )
+
+    def orbdata_add(self, norad, orb):
+        self.c.execute(
+            "select max(date) from orbdata where norad = ?", (norad,))
+        (latestdate,) = self.c.fetchone()
+        if (latestdate is not None) and (latestdate > orb.timestamp):
+            return
+        self.c.execute(
+            "insert or ignore into orbdata values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (norad, orb.timestamp, orb.epoch_yr, orb.epoch_day, orb.bstar,
+             orb.inclo, orb.nodeo, orb.ecco, orb.argpo, 
+             orb.ibexp, orb.mo, orb.no)
+        )
