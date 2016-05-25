@@ -74,3 +74,8 @@ class DBController:
         rs = self.c.fetchone()
         orb = self.row_to_orbdata(rs[1:])
         return orb
+
+    def get_orbits_all(self, norad):
+        orbs = []
+        res = self.c.execute("select * from orbdata where norad = ?", (norad,))
+        return self.rows_to_orbdata(res)
