@@ -65,3 +65,50 @@ class Renderer:
             ret.append(l2)
 
         return ret
+
+    def render_border(self, t1, t2, jt1, jt2, odata):
+        if (t1 >= t2):
+            return
+
+        tn, jtn = t1 + self.step, jt1 + self.jstep
+        xp, yp = self.get_coord(t1, jt1, odata)
+
+        while tn < t2:
+            xn, yn = self.get_coord(tn, jtn, odata)
+            self.line_list += self.get_lines(xp, yp, xn, yn)
+            xp, yp = xn, yn
+            tn, jtn, = tn + self.step, jtn + self.jstep
+
+        xn, yn = self.get_coord(t2, jtn, odata)
+
+        self.line_list += self.get_lines(xp, yp, xn, yn)
+
+    def get_coords_from_nearest(self, t, jt, odata1, odata2):
+        if t - odata1.timestamp < odata2.timestamp - t:
+            return self.get_coord(t, jt, odata2)
+
+        return self.get_coord(t, jt, odata1)
+
+    def render_mid(self, t1, t2, jt1, jt2, odata1, odata2):
+        if (t1 >= t2):
+            return
+
+        tn, jtn = t1 + self.step, jt1 + self.jstep
+        xp, yp = self.get_coords_from_nearest(t1, jt1, odata1, odata2)
+
+        while tn < t2:
+            xn, yn = self.get_coords_from_nearest(tn, jtn, odata1, odata2)
+            self.line_list += self.get_lines(xp, yp, xn, yn)
+            xp, yp = xn, yn
+            tn, jtn = tn + self.step, jtn + self.jstep
+
+        xn, yn = self.get_coords_from_nearest(t2, jtn, odata1, odata2)
+
+        self.line_list += self.get_lines(xp, yp, xn, yn)
+
+    def set_steps(self, no):
+        if no < self.min_resolutions:
+            no = self.min_resolutions
+
+        self.jstep = 1.0 / no / self.steps
+        self.step = 86400.0 * self.jstep
