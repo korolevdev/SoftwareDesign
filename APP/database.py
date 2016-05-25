@@ -126,3 +126,35 @@ class DBController:
 
     def sync(self):
         self.conn.commit()
+
+    # utils
+
+    def closest_orbit(self, norad, t):
+        if t is None:
+            return self.get_orbit_latest(norad)
+        corbs = self.get_orbits_closest(norad, t)
+        if len(corbs) == 1:
+            return corbs[0]
+        ldt = abs(t - corbs[0].timestamp)
+        rdt = abs(t - corbs[1].timestamp)
+        return corbs[0] if ldt < rdt else corbs[1]
+
+    def rows_to_orbdata(self, res):
+        orbs = []
+        for rs in res:
+            orb = self.row_to_orbdata(rs)
+            orbs.append(orb)
+        return orbs
+
+    def row_to_orbdata(self, rs):
+        orb = OrbitData()
+        (orb.norad, orb.timestamp, orb.epoch_yr, orb.epoch_day, orb.bstar,
+         orb.inclo, orb.nodeo, orb.ecco, orb.argpo, orb.ibexp, 
+         orb.mo, orb.no) = rs
+        orb.init_date()
+        return orb
+
+    def row_to_sat(self, rs):
+        sat = Sat(self.get_orbit_latest(rs[0]))
+        (sat.norad, sat.name, sat.intl, sat.country, sat.year) = rs
+        return sat
