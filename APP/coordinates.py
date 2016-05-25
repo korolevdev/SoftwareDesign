@@ -33,3 +33,10 @@ def lonlat_to_mercator(lon, lat):
     x = normalize_lon(lon)
     y = log(tan(pi / 4 + lat / 2))
     return x, y
+
+
+def wgs84_to_ndc(xyz, jt):
+    x, y, z = xyz
+    lon, lat = wgs84_to_lonlat(x, y, z, jt_to_gmst(jt))
+    x, y = lonlat_to_mercator(lon, lat)
+    return x / pi, y / pi
