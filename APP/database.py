@@ -94,3 +94,7 @@ class DBController:
             orb = self.row_to_orbdata(rs[1:])
             orbs.append(orb)
         return orbs
+
+    def sat_exists(self, norad):
+        self.c.execute("select norad from sats where norad = ?", (norad,))
+        return self.c.fetchone() is not None
