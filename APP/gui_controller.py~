@@ -7,8 +7,8 @@ from PyQt5.QtWidgets import QTableWidgetItem, QHeaderView
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt, QDateTime
 from PyQt5 import uic
-from gui_controller import GUIController
-from controller import EvRender, EvSaveTLE, EvLoadTLE, EvReloadAll
+from gui import GUIController
+from events import EvRender, EvSaveTLE, EvLoadTLE, EvReloadAll
 from gui_qt_utils import QtScene, QtPalette
 from queue import Queue
 

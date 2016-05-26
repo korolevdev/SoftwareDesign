@@ -1,6 +1,6 @@
 from database import DBController, DBError
 from renderer import Renderer
-from gui_qt import QtGUIController
+from gui_qt import GUIController
 from decoder import DecoderError
 from tle_decoder import TLEListDecoder
 from time import sleep
@@ -17,7 +17,7 @@ class SatView:
     def __init__(self):
         self.dbc = DBController()
         self.rdr = Renderer()
-        self.gui = QtGUIController()
+        self.gui = GUIController()
         self.sats = []
         self.reload_sats()
 
