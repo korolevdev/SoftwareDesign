@@ -27,8 +27,95 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
+      <widget class="QWidget" name="tab_map">
+       <attribute name="title">
+        <string>Map</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QWidget" name="widget_3" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QDateTimeEdit" name="dtFrom">
+             <property name="dateTime">
+              <datetime>
+               <hour>9</hour>
+               <minute>0</minute>
+               <second>0</second>
+               <year>2016</year>
+               <month>5</month>
+               <day>4</day>
+              </datetime>
+             </property>
+             <property name="date">
+              <date>
+               <year>2016</year>
+               <month>5</month>
+               <day>4</day>
+              </date>
+             </property>
+             <property name="timeSpec">
+              <enum>Qt::UTC</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDateTimeEdit" name="dtTo">
+             <property name="dateTime">
+              <datetime>
+               <hour>9</hour>
+               <minute>0</minute>
+               <second>0</second>
+               <year>2016</year>
+               <month>5</month>
+               <day>5</day>
+              </datetime>
+             </property>
+             <property name="date">
+              <date>
+               <year>2016</year>
+               <month>5</month>
+               <day>5</day>
+              </date>
+             </property>
+             <property name="timeSpec">
+              <enum>Qt::UTC</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="renderButton">
+             <property name="text">
+              <string>Render</string>
+             </property>
+             <property name="autoDefault">
+              <bool>true</bool>
+             </property>
+             <property name="default">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGraphicsView" name="mapCanvas">
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_sats">
        <attribute name="title">
         <string>Satellites</string>
@@ -89,7 +176,7 @@
                <property name="placeholderText">
                 <string>NORAD mask</string>
                </property>
-               <property name="clearButtonEnabled" stdset="0">
+               <property name="clearButtonEnabled">
                 <bool>false</bool>
                </property>
               </widget>
@@ -299,98 +386,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_map">
-       <attribute name="title">
-        <string>Map</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QGraphicsView" name="mapCanvas">
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QWidget" name="widget_3" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QDateTimeEdit" name="dtFrom">
-             <property name="dateTime">
-              <datetime>
-               <hour>15</hour>
-               <minute>0</minute>
-               <second>0</second>
-               <year>2016</year>
-               <month>5</month>
-               <day>4</day>
-              </datetime>
-             </property>
-             <property name="date">
-              <date>
-               <year>2016</year>
-               <month>5</month>
-               <day>4</day>
-              </date>
-             </property>
-             <property name="timeSpec">
-              <enum>Qt::UTC</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QDateTimeEdit" name="dtTo">
-             <property name="dateTime">
-              <datetime>
-               <hour>15</hour>
-               <minute>0</minute>
-               <second>0</second>
-               <year>2016</year>
-               <month>5</month>
-               <day>5</day>
-              </datetime>
-             </property>
-             <property name="date">
-              <date>
-               <year>2016</year>
-               <month>5</month>
-               <day>5</day>
-              </date>
-             </property>
-             <property name="timeSpec">
-              <enum>Qt::UTC</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="renderButton">
-             <property name="text">
-              <string>Render</string>
-             </property>
-             <property name="autoDefault">
-              <bool>true</bool>
-             </property>
-             <property name="default">
-              <bool>true</bool>
-             </property>
-             <property name="flat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
