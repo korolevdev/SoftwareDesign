@@ -52,7 +52,7 @@ class QtScene:
         self.view.setScene(self.scene)
         self.load_res()
 
-    def load_res(self, mapf="map.jpg"):
+    def load_res(self, mapf="map.png"):
         img = QImage(mapf)
         pix = QPixmap.fromImage(img)
         self.map = QGraphicsPixmapItem(pix)
